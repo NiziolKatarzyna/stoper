@@ -1,6 +1,7 @@
 import styles from './App.module.scss';
 import Stoper from './Component/Stoper/Stoper';
 import { useState } from 'react';
+import { useEffect } from 'react';
 
 const App = () => {
   const [time, setTime] = useState(0);
@@ -8,7 +9,10 @@ const App = () => {
 
   const handleStart = () => {
     // Sprawdzamy, czy interwał już działa, aby uniknąć wielokrotnego uruchamiania
+
     if (!intervalId) {
+      clearInterval(intervalId);
+      setTime(0);
       const id = setInterval(() => {
         // Zwiększamy czas o 1 co milisekundę
         setTime((prevTime) => prevTime + 1);
@@ -18,13 +22,31 @@ const App = () => {
       setIntervalId(id);
     }
   };
+  const handleStop = () => {
+    clearInterval(intervalId);
+  };
+
+  const handleReset = () => {
+    setTime(0);
+  };
+  useEffect(() => {
+    // Zeruj interval, gdy komponent jest usuwany
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [intervalId]);
+
   return (
     <div className={styles.container}>
       <button className={styles.button} onClick={handleStart}>
         start
       </button>
-      <button className={styles.button}>stop</button>
-      <button className={styles.button}>reset</button>
+      <button className={styles.button} onClick={handleStop}>
+        stop
+      </button>
+      <button className={styles.button} onClick={handleReset}>
+        reset
+      </button>
       <Stoper milliseconds={time} />
     </div>
   );
