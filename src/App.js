@@ -24,10 +24,13 @@ const App = () => {
   };
   const handleStop = () => {
     clearInterval(intervalId);
+    setIntervalId(null);
   };
 
   const handleReset = () => {
+    clearInterval(intervalId);
     setTime(0);
+    setIntervalId(null);
   };
   useEffect(() => {
     // Zeruj interval, gdy komponent jest usuwany
