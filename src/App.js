@@ -11,8 +11,6 @@ const App = () => {
     // Sprawdzamy, czy interwał już działa, aby uniknąć wielokrotnego uruchamiania
 
     if (!intervalId) {
-      clearInterval(intervalId);
-      setTime(0);
       const id = setInterval(() => {
         // Zwiększamy czas o 1 co milisekundę
         setTime((prevTime) => prevTime + 1);
@@ -41,6 +39,7 @@ const App = () => {
 
   return (
     <div className={styles.container}>
+      <Stoper milliseconds={time} />
       <button className={styles.button} onClick={handleStart}>
         start
       </button>
@@ -50,7 +49,6 @@ const App = () => {
       <button className={styles.button} onClick={handleReset}>
         reset
       </button>
-      <Stoper milliseconds={time} />
     </div>
   );
 };

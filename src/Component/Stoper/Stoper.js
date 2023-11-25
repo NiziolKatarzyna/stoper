@@ -12,9 +12,7 @@ const Stoper = ({ milliseconds }) => {
 
   return (
     <section>
-      <div className={styles.stoper}>
-        <p>{customFormattedTime}</p>
-      </div>
+      <p className={styles.stoper}>{customFormattedTime}</p>
     </section>
   );
 };
